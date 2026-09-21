@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Un Universo para Ti 💛🌻</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #050510;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Canvas del Universo */
+        #universeCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Contenido Central */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 40px 20px 80px 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #ffda44;
+            font-size: 2.3rem;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255, 218, 68, 0.6);
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            color: #e2d8b2;
+            font-size: 1.1rem;
+            font-style: italic;
+            margin-bottom: 35px;
+        }
+
+        /* Tarjeta de Mensaje */
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 218, 68, 0.25);
+            border-radius: 20px;
+            padding: 30px 25px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            margin-bottom: 30px;
+            transition: transform 0.3s ease;
+        }
+
+        .card p {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #f7f5e8;
+            margin-bottom: 18px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .highlight {
+            color: #ffe600;
+            font-weight: 600;
+        }
+
+        /* Botón Interactivo */
+        .btn-flower {
+            background: linear-gradient(135deg, #ffd700, #ff9100);
+            border: none;
+            color: #1a1a2e;
+            padding: 14px 28px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-flower:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+        }
+
+        /* Mensaje Secreto Popup */
+        #secretMsg {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+            font-size: 1.2rem;
+            color: #ffeb3b;
+            font-style: italic;
+            margin-top: 25px;
+            padding: 15px;
+            background: rgba(255, 218, 68, 0.1);
+            border-radius: 12px;
+            border-left: 4px solid #ffd700;
+        }
+
+        #secretMsg.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .footer-note {
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="universeCanvas"></canvas>
+
+    <div class="container">
+        <h1>🌻 Un Universo de Flores Amarillas 🌻</h1>
+        <p class="subtitle">Para alguien muy especial en este 21 de Septiembre...</p>
+
+        <div class="card">
+            <p>Dicen que en el <span class="highlight">21 de Septiembre</span> se entregan flores amarillas como símbolo de luz, alegría, buenas energías y deseos de estar presente en la vida de alguien por mucho tiempo.</p>
+            
+            <p>No quería darte un detalle común que se marchite con los días. Por eso creé este <span class="highlight">universo digital</span> donde miles de flores amarillas y estrellas flotan infinitamente, justo como el cariño y la ilusión que me da compartir cada momento contigo.</p>
+
+            <p>Gracias por iluminar mis días con tu sonrisa y por hacer que cada instante valga la pena. ✨</p>
+        </div>
+
+        <button class="btn-flower" onclick="lanzarFloresExtra()">✨ Toca para hacer florecer el universo ✨</button>
+
+        <div id="secretMsg">
+            "Eres el detalle más bonito que me ha pasado en este tiempo... 💛"
+        </div>
+
+        <p class="footer-note">Haz clic o toca en cualquier parte de la pantalla para crear más flores amarillas 🌻</p>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('universeCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        // Generar partículas (estrellas y flores)
+        const numParticles = 80;
+        const particles = [];
+        const flowerIcons = ['🌻', '🌼', '✨', '💛', '🌸'];
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x || Math.random() * width;
+                this.y = y || Math.random() * height;
+                this.size = Math.random() * 22 + 14;
+                this.icon = flowerIcons[Math.floor(Math.random() * flowerIcons.length)];
+                this.speedX = (Math.random() - 0.5) * 1.5;
+                this.speedY = -Math.random() * 1.5 - 0.5; // Flotan hacia arriba
+                this.opacity = Math.random() * 0.7 + 0.3;
+                this.rotation = Math.random() * 360;
+                this.rotSpeed = (Math.random() - 0.5) * 2;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.rotation += this.rotSpeed;
+
+                if (this.y < -30) {
+                    this.y = height + 30;
+                    this.x = Math.random() * width;
+                }
+                if (this.x < -30) this.x = width + 30;
+                if (this.x > width + 30) this.x = -30;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate((this.rotation * Math.PI) / 180);
+                ctx.globalAlpha = this.opacity;
+                ctx.font = `${this.size}px serif`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(this.icon, 0, 0);
+                ctx.restore();
+            }
+        }
+
+        for (let i = 0; i < numParticles; i++) {
+            particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+            }
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        window.addEventListener('click', (e) => {
+            for (let i = 0; i < 5; i++) {
+                particles.push(new Particle(e.clientX, e.clientY));
+            }
+            if (particles.length > 150) {
+                particles.splice(0, 5);
+            }
+        });
+
+        function lanzarFloresExtra() {
+            const msg = document.getElementById('secretMsg');
+            msg.classList.add('show');
+
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    particles.push(new Particle(Math.random() * width, height + 20));
+                }, i * 50);
+            }
+        }
+    </script>
+</body>
+</html>
