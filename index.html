@@ -281,7 +281,7 @@
             </svg>
         </div>
         <h1 class="intro-title">Para ti, Milagros ✨</h1>
-        <p class="intro-subtitle">De parte de Jhon ALbert</p>
+        <p class="intro-subtitle">De parte de Brayan</p>
         <button class="start-btn" onclick="iniciarExperiencia()">Toca para iniciar 💛</button>
     </div>
 
@@ -494,41 +494,88 @@
             return sprite;
         }
 
+        // --- RENDERIZADO HIPERREALISTA DE GIRASOLES Y FLORES VIVAS ---
         function paintSunflower(ctx, cx, cy, r, petalCount) {
+            // Capa Posterior de Pétalos (Sombra y volumen orgánico)
             for (let i = 0; i < petalCount; i++) {
-                const angle = (i / petalCount) * Math.PI * 2;
-                const px = cx + Math.cos(angle) * r * 0.62;
-                const py = cy + Math.sin(angle) * r * 0.62;
+                const angle = (i / petalCount) * Math.PI * 2 + 0.12;
+                const px = cx + Math.cos(angle) * r * 0.65;
+                const py = cy + Math.sin(angle) * r * 0.65;
 
                 ctx.save();
                 ctx.translate(px, py);
                 ctx.rotate(angle);
 
-                const grad = ctx.createLinearGradient(-r * 0.45, 0, r * 0.45, 0);
-                grad.addColorStop(0, '#b85e00');
-                grad.addColorStop(0.35, '#ffb300');
-                grad.addColorStop(0.75, '#ffe066');
-                grad.addColorStop(1, '#fff6c8');
-                ctx.fillStyle = grad;
-                ctx.strokeStyle = 'rgba(150, 80, 0, 0.4)';
-                ctx.lineWidth = 1.2;
+                const gradBack = ctx.createLinearGradient(-r * 0.5, 0, r * 0.5, 0);
+                gradBack.addColorStop(0, '#9c4d00');
+                gradBack.addColorStop(0.4, '#e68a00');
+                gradBack.addColorStop(0.85, '#ffcc00');
+                gradBack.addColorStop(1, '#ffe885');
+                ctx.fillStyle = gradBack;
 
                 ctx.beginPath();
-                ctx.ellipse(0, 0, r * 0.5, r * 0.19, 0, 0, Math.PI * 2);
+                ctx.moveTo(-r * 0.1, 0);
+                ctx.bezierCurveTo(-r * 0.1, -r * 0.18, r * 0.3, -r * 0.22, r * 0.55, 0);
+                ctx.bezierCurveTo(r * 0.3, r * 0.22, -r * 0.1, r * 0.18, -r * 0.1, 0);
                 ctx.fill();
-                ctx.stroke();
                 ctx.restore();
             }
 
-            const centerR = r * 0.42;
-            const centerGrad = ctx.createRadialGradient(cx - centerR * 0.3, cy - centerR * 0.3, centerR * 0.1, cx, cy, centerR);
-            centerGrad.addColorStop(0, '#9a6a2e');
-            centerGrad.addColorStop(0.6, '#5c3a15');
-            centerGrad.addColorStop(1, '#2b1a08');
+            // Capa Frontal de Pétalos (Luz y textura vívida)
+            for (let i = 0; i < petalCount; i++) {
+                const angle = (i / petalCount) * Math.PI * 2;
+                const px = cx + Math.cos(angle) * r * 0.6;
+                const py = cy + Math.sin(angle) * r * 0.6;
+
+                ctx.save();
+                ctx.translate(px, py);
+                ctx.rotate(angle);
+
+                const gradFront = ctx.createLinearGradient(-r * 0.45, 0, r * 0.45, 0);
+                gradFront.addColorStop(0, '#cc6e00');
+                gradFront.addColorStop(0.3, '#ffb700');
+                gradFront.addColorStop(0.7, '#ffea00');
+                gradFront.addColorStop(1, '#ffffff');
+                ctx.fillStyle = gradFront;
+
+                ctx.beginPath();
+                ctx.moveTo(-r * 0.08, 0);
+                ctx.bezierCurveTo(-r * 0.08, -r * 0.15, r * 0.25, -r * 0.19, r * 0.5, 0);
+                ctx.bezierCurveTo(r * 0.25, r * 0.19, -r * 0.08, r * 0.15, -r * 0.08, 0);
+                ctx.fill();
+
+                // Venas sutiles de pétalo natural
+                ctx.strokeStyle = 'rgba(212, 113, 0, 0.35)';
+                ctx.lineWidth = 0.8;
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.lineTo(r * 0.38, 0);
+                ctx.stroke();
+
+                ctx.restore();
+            }
+
+            // Disco Floral de Semillas Texturizado en HD
+            const centerR = r * 0.44;
+            const centerGrad = ctx.createRadialGradient(cx - centerR * 0.2, cy - centerR * 0.2, centerR * 0.05, cx, cy, centerR);
+            centerGrad.addColorStop(0, '#8c592b');
+            centerGrad.addColorStop(0.4, '#523113');
+            centerGrad.addColorStop(0.85, '#2b1706');
+            centerGrad.addColorStop(1, '#140a02');
             ctx.fillStyle = centerGrad;
             ctx.beginPath();
             ctx.arc(cx, cy, centerR, 0, Math.PI * 2);
             ctx.fill();
+
+            // Puntos de textura de semillas y polen
+            ctx.fillStyle = 'rgba(255, 200, 80, 0.45)';
+            for (let j = 0; j < 28; j++) {
+                const seedAngle = Math.random() * Math.PI * 2;
+                const seedDist = Math.random() * centerR * 0.8;
+                ctx.beginPath();
+                ctx.arc(cx + Math.cos(seedAngle) * seedDist, cy + Math.sin(seedAngle) * seedDist, 0.9, 0, Math.PI * 2);
+                ctx.fill();
+            }
         }
 
         function createSunflowerBouquetSprite(isCard = false) {
@@ -537,16 +584,27 @@
             canvas.width = 320;
             canvas.height = 320;
 
-            const wrapGrad = ctx.createLinearGradient(0, 110, 0, 300);
-            wrapGrad.addColorStop(0, '#e3c495');
-            wrapGrad.addColorStop(1, '#b98a4e');
+            // Envoltorio Kraft de Flores con Pliegues Sombreados
+            const wrapGrad = ctx.createLinearGradient(60, 120, 260, 300);
+            wrapGrad.addColorStop(0, '#f2d6b3');
+            wrapGrad.addColorStop(0.5, '#d4ad7b');
+            wrapGrad.addColorStop(1, '#946f40');
             ctx.fillStyle = wrapGrad;
             ctx.beginPath();
             ctx.moveTo(100, 190);
             ctx.lineTo(160, 300);
             ctx.lineTo(220, 190);
-            ctx.lineTo(262, 118);
-            ctx.lineTo(58, 118);
+            ctx.lineTo(265, 115);
+            ctx.lineTo(55, 115);
+            ctx.closePath();
+            ctx.fill();
+
+            // Pliegue interno del ramo
+            ctx.fillStyle = 'rgba(0,0,0,0.15)';
+            ctx.beginPath();
+            ctx.moveTo(160, 300);
+            ctx.lineTo(160, 115);
+            ctx.lineTo(220, 190);
             ctx.closePath();
             ctx.fill();
 
@@ -554,7 +612,7 @@
                 ? [{ x: 160, y: 60, r: 62 }]
                 : [{ x: 105, y: 95, r: 42 }, { x: 155, y: 55, r: 50 }, { x: 205, y: 95, r: 42 }, { x: 160, y: 135, r: 38 }];
 
-            flowerSpots.forEach(s => paintSunflower(ctx, s.x, s.y, s.r, 14));
+            flowerSpots.forEach(s => paintSunflower(ctx, s.x, s.y, s.r, 16));
 
             if (isCard) {
                 ctx.save();
