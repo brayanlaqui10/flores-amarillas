@@ -8,7 +8,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --bg: #010104;
+            --bg: #020208;
             --gold: #ffd700;
             --gold-soft: #ffe98a;
             --amber: #ff8c00;
@@ -23,19 +23,23 @@
             height: 100%;
         }
 
-        /* PANTALLA DE INICIO CON FLORES 3D */
+        body {
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+        }
+
         #introScreen {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
             z-index: 200;
-            background: radial-gradient(ellipse at center, #0a0a18 0%, #010104 80%);
+            background: radial-gradient(ellipse at center, #0a0a14 0%, #020208 75%);
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 40px 20px;
+            padding: 20px;
             transition: opacity 1.2s ease, visibility 1.2s ease;
         }
 
@@ -45,53 +49,52 @@
             pointer-events: none;
         }
 
-        #intro-canvas-container {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: 1;
+        .bouquet-container {
+            width: 260px;
+            height: 320px;
+            margin-bottom: 10px;
+            animation: growAndSway 3.5s ease-in-out infinite alternate;
+            transform-origin: bottom center;
+            filter: drop-shadow(0 0 25px rgba(255, 200, 0, 0.45));
         }
 
-        .intro-content {
-            position: relative;
-            z-index: 10;
-            pointer-events: none;
+        @keyframes growAndSway {
+            0% { transform: scale(0.7) rotate(-4deg); }
+            50% { transform: scale(1.05) rotate(4deg); }
+            100% { transform: scale(1.0) rotate(-2deg); }
         }
 
         .intro-title {
             color: var(--gold);
-            font-size: 2.5rem;
-            font-weight: 900;
-            margin-bottom: 8px;
-            text-shadow: 0 0 25px rgba(255, 215, 0, 0.9);
-            letter-spacing: 1px;
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-bottom: 6px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
         }
 
         .intro-subtitle {
             color: #e2e8f0;
-            font-size: 1.15rem;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
             font-style: italic;
         }
 
         .start-btn {
-            position: relative;
-            z-index: 10;
             background: linear-gradient(135deg, var(--gold), var(--amber));
             border: none;
             color: #1a1200;
-            padding: 16px 45px;
-            font-size: 1.25rem;
+            padding: 15px 42px;
+            font-size: 1.2rem;
             font-weight: bold;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 0 35px rgba(255, 215, 0, 0.9);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
             transition: all 0.3s ease;
-            pointer-events: auto;
         }
 
         .start-btn:hover {
             transform: scale(1.08);
-            box-shadow: 0 0 50px rgba(255, 215, 0, 1);
+            box-shadow: 0 0 45px rgba(255, 215, 0, 1);
         }
 
         #canvas-container {
@@ -114,7 +117,7 @@
 
         .header-title h1 {
             color: var(--gold);
-            font-size: 2.2rem;
+            font-size: 2.1rem;
             font-weight: 900;
             text-shadow: 0 0 20px var(--gold), 0 0 35px var(--amber);
             letter-spacing: 2px;
@@ -143,7 +146,6 @@
             box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
         }
 
-        /* ACCESOS DIRECTOS A CARTAS */
         .bottom-cards-bar {
             position: fixed;
             bottom: calc(15px + env(safe-area-inset-bottom, 0px));
@@ -152,12 +154,12 @@
             z-index: 20;
             display: flex;
             gap: 10px;
-            background: rgba(10, 8, 4, 0.85);
+            background: rgba(10, 8, 4, 0.82);
             padding: 8px 14px;
             border-radius: 30px;
             border: 1px solid rgba(255, 215, 0, 0.5);
             backdrop-filter: blur(10px);
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
             max-width: 95%;
             overflow-x: auto;
         }
@@ -173,6 +175,7 @@
             cursor: pointer;
             white-space: nowrap;
             transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
         }
 
         .quick-card-btn:hover {
@@ -182,7 +185,6 @@
             box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
         }
 
-        /* MODALES */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0;
@@ -250,48 +252,70 @@
 
     <button class="music-btn" onclick="toggleMusic()">🎵 Música: ON</button>
 
-    <!-- PANTALLA DE BIENVENIDA CON FLORES EN 3D -->
     <div id="introScreen">
-        <div class="intro-content">
-            <h1 class="intro-title">Para ti, Milagros ✨</h1>
-            <p class="intro-subtitle">De parte de Jhon Albert</p>
+        <div class="bouquet-container">
+            <svg viewBox="0 0 200 260" width="100%" height="100%">
+                <defs>
+                    <radialGradient id="petalGradIntro" cx="35%" cy="30%" r="75%">
+                        <stop offset="0%" stop-color="#fff6c8"/>
+                        <stop offset="55%" stop-color="#ffd400"/>
+                        <stop offset="100%" stop-color="#e88a00"/>
+                    </radialGradient>
+                    <radialGradient id="centerGradIntro" cx="40%" cy="35%" r="70%">
+                        <stop offset="0%" stop-color="#7a4a1e"/>
+                        <stop offset="100%" stop-color="#3b2410"/>
+                    </radialGradient>
+                    <linearGradient id="stemGradIntro" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#4fbf5a"/>
+                        <stop offset="100%" stop-color="#1e7a34"/>
+                    </linearGradient>
+                </defs>
+
+                <path d="M50 140 L100 240 L150 140 L170 80 L30 80 Z" fill="#d2b48c" stroke="#8b5a2b" stroke-width="3"/>
+                <path d="M100 240 L85 140 L100 80 L115 140 Z" fill="#c5a059" opacity="0.5"/>
+                <path d="M80 150 C70 140 70 165 100 155 C130 165 130 140 120 150 C110 160 90 160 80 150 Z" fill="#ff6b81"/>
+
+                <path d="M60 90 L100 160 M80 85 L100 160 M100 70 L100 160 M120 85 L100 160 M140 90 L100 160" stroke="url(#stemGradIntro)" stroke-width="5" stroke-linecap="round"/>
+
+                <g id="sunflowerGroupIntro"></g>
+            </svg>
         </div>
-        <div id="intro-canvas-container"></div>
-        <button class="start-btn" onclick="iniciarExperiencia()">Toca para entrar al Cosmos 💛</button>
+        <h1 class="intro-title">Para ti, Milagros ✨</h1>
+        <p class="intro-subtitle">De parte de Jhon ALbert</p>
+        <button class="start-btn" onclick="iniciarExperiencia()">Toca para iniciar 💛</button>
     </div>
 
     <div class="header-title">
-        <h1>FELIZ DÍA DE LAS FLORES AMARILLAS 🌻</h1>
-        <p>Para ti, Milagros ✨ - Explora el Cosmos o abre las Cartas abajo</p>
+        <h1>PARA ALGUIEN ESPECIAL: MILAGROS 💛</h1>
+        <p>Gira el universo 3D o toca los accesos directos abajo ✉️</p>
     </div>
 
     <div class="bottom-cards-bar">
         <button class="quick-card-btn" onclick="openModal(1)">📜 Carta 1: Brillas con luz propia</button>
         <button class="quick-card-btn" onclick="openModal(2)">✨ Carta 2: Tu alegría única</button>
-        <button class="quick-card-btn" onclick="openModal(3)">💌 Carta 3: Un regalo cósmico</button>
+        <button class="quick-card-btn" onclick="openModal(3)">💌 Carta 3: Un detalle para ti</button>
     </div>
 
-    <!-- CARTAS DEDICADAS A MILAGROS -->
     <div class="modal-overlay" id="modal1">
         <div class="note-card">
-            <h2>📜 1. Brillas con luz propia, Milagros...</h2>
-            <p>Hay personas que tienen la capacidad de iluminar cualquier espacio con su sola presencia, y tú eres definitivamente una de ellas. Tu nombre lo dice todo: eres un verdadero milagro de alegría, elegancia y luz para quienes te rodean. ✨</p>
+            <h2>📜 1. Brillas con luz propia...</h2>
+            <p>Hay personas que tienen la cualidad única de iluminar el lugar a donde van, y tú eres una de ellas. Tu presencia transmite una vibra tan bonita y especial que es imposible no contagiarse de esa buena energía. ✨</p>
             <button class="close-btn" onclick="closeModal(1)">Cerrar Carta 💛</button>
         </div>
     </div>
 
     <div class="modal-overlay" id="modal2">
         <div class="note-card">
-            <h2>✨ 2. Una alegría que inspira...</h2>
-            <p>Quería darte este detalle porque valoro mucho la persona tan especial que eres. Tu sonrisa, tu forma de ser y la energía tan bonita que transmites hacen que cada día sea mucho más especial. Nunca dejes de sonreír. 🌻</p>
+            <h2>✨ 2. Tu alegría única...</h2>
+            <p>Quería darte este detalle porque aprecio mucho la gran persona que eres. Tu sonrisa y la forma en que ves la vida hacen que cada momento sea especial, convirtiendo cualquier día ordinario en algo lindo de recordar. 🌻</p>
             <button class="close-btn" onclick="closeModal(2)">Cerrar Carta 💛</button>
         </div>
     </div>
 
     <div class="modal-overlay" id="modal3">
         <div class="note-card">
-            <h2>💌 3. Un universo de Flores para ti...</h2>
-            <p>En este 21 de septiembre, no quería regalarte flores comunes que se marchiten en unos días, sino todo un cosmos infinito de girasoles y tulipanes amarillos que brillen para siempre para ti. Feliz Día de las Flores Amarillas, Milagros. 💛✨</p>
+            <h2>💌 3. Un detalle para ti, Milagros...</h2>
+            <p>Las flores amarillas representan el cariño sincero, la alegría y los mejores deseos. Hoy quise crear este pequeño universo para recordarte lo mucho que vales y desearte que tu camino siempre esté lleno de motivos para sonreír. 💛✨</p>
             <button class="close-btn" onclick="closeModal(3)">Cerrar Carta 💛</button>
         </div>
     </div>
@@ -302,116 +326,58 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 
     <script>
-        // ==========================================
-        // 1. ESCENA 3D DE LA ENTRADA (RAMO EN 3D REALISTA)
-        // ==========================================
-        const introContainer = document.getElementById('intro-canvas-container');
-        const introScene = new THREE.Scene();
-        const introCamera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
-        introCamera.position.set(0, 0, 18);
-
-        const introRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        introRenderer.setSize(window.innerWidth, window.innerHeight);
-        introRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        introContainer.appendChild(introRenderer.domElement);
-
-        const introGroup = new THREE.Group();
-
-        // Construcción 3D del Ramo
-        function create3DFlowerBouquet() {
-            const bouquet = new THREE.Group();
-
-            // Envoltorio Kraft 3D
-            const wrapGeo = new THREE.ConeGeometry(3.5, 7, 32, 1, true);
-            const wrapMat = new THREE.MeshStandardMaterial({ color: 0xd2b48c, side: THREE.DoubleSide, roughness: 0.8 });
-            const wrapMesh = new THREE.Mesh(wrapGeo, wrapMat);
-            wrapMesh.position.y = -3;
-            wrapMesh.rotation.x = Math.PI;
-            bouquet.add(wrapMesh);
-
-            // Cinta Rosa 3D
-            const ribbonGeo = new THREE.TorusGeometry(1.6, 0.25, 16, 32);
-            const ribbonMat = new THREE.MeshStandardMaterial({ color: 0xff6b81, roughness: 0.4 });
-            const ribbonMesh = new THREE.Mesh(ribbonGeo, ribbonMat);
-            ribbonMesh.position.y = -0.8;
-            ribbonMesh.rotation.x = Math.PI / 2;
-            bouquet.add(ribbonMesh);
-
-            // Girasoles y Tulipanes en 3D
-            const flowerPositions = [
-                { x: 0, y: 1.8, z: 0.5, type: 'sunflower' },
-                { x: -1.4, y: 1.0, z: 0.8, type: 'tulip' },
-                { x: 1.4, y: 1.0, z: 0.8, type: 'tulip' },
-                { x: -0.9, y: 2.6, z: -0.2, type: 'sunflower' },
-                { x: 0.9, y: 2.6, z: -0.2, type: 'sunflower' }
-            ];
-
-            flowerPositions.forEach(p => {
-                const fGroup = new THREE.Group();
-                fGroup.position.set(p.x, p.y, p.z);
-
-                if (p.type === 'sunflower') {
-                    // Centro
-                    const centerGeo = new THREE.CylinderGeometry(0.7, 0.7, 0.2, 24);
-                    const centerMat = new THREE.MeshStandardMaterial({ color: 0x3b2410, roughness: 0.9 });
-                    const centerMesh = new THREE.Mesh(centerGeo, centerMat);
-                    centerMesh.rotation.x = Math.PI / 3;
-                    fGroup.add(centerMesh);
-
-                    // Pétalos
-                    const petalGeo = new THREE.ConeGeometry(0.25, 1.2, 16);
-                    const petalMat = new THREE.MeshStandardMaterial({ color: 0xffd700, roughness: 0.3 });
-                    for (let i = 0; i < 14; i++) {
-                        const angle = (i / 14) * Math.PI * 2;
-                        const petal = new THREE.Mesh(petalGeo, petalMat);
-                        petal.position.x = Math.cos(angle) * 0.9;
-                        petal.position.y = Math.sin(angle) * 0.9;
-                        petal.rotation.z = angle - Math.PI / 2;
-                        petal.rotation.x = Math.PI / 6;
-                        fGroup.add(petal);
+        window.addEventListener('DOMContentLoaded', () => {
+            const svgNS = "http://www.w3.org/2000/svg";
+            const group = document.getElementById('sunflowerGroupIntro');
+            if (group) {
+                const centers = [
+                    { x: 60, y: 70, r: 20 }, { x: 85, y: 48, r: 23 },
+                    { x: 100, y: 32, r: 25 }, { x: 116, y: 48, r: 23 },
+                    { x: 140, y: 70, r: 20 }
+                ];
+                centers.forEach(c => {
+                    const petals = 14;
+                    for (let i = 0; i < petals; i++) {
+                        const angle = (i / petals) * Math.PI * 2;
+                        const petal = document.createElementNS(svgNS, "ellipse");
+                        petal.setAttribute("cx", c.x + Math.cos(angle) * c.r * 0.72);
+                        petal.setAttribute("cy", c.y + Math.sin(angle) * c.r * 0.72);
+                        petal.setAttribute("rx", c.r * 0.5);
+                        petal.setAttribute("ry", c.r * 0.22);
+                        petal.setAttribute("fill", "url(#petalGradIntro)");
+                        petal.setAttribute("stroke", "#e07d00");
+                        petal.setAttribute("stroke-width", "0.6");
+                        petal.setAttribute("transform", `rotate(${angle * 180 / Math.PI} ${c.x + Math.cos(angle) * c.r * 0.72} ${c.y + Math.sin(angle) * c.r * 0.72})`);
+                        group.appendChild(petal);
                     }
-                } else {
-                    // Tulipán 3D
-                    const tulipGeo = new THREE.SphereGeometry(0.7, 16, 16, 0, Math.PI * 2, 0, Math.PI * 0.7);
-                    const tulipMat = new THREE.MeshStandardMaterial({ color: 0xffea00, side: THREE.DoubleSide, roughness: 0.3 });
-                    const tulipMesh = new THREE.Mesh(tulipGeo, tulipMat);
-                    tulipMesh.rotation.x = Math.PI;
-                    fGroup.add(tulipMesh);
-                }
+                    const center = document.createElementNS(svgNS, "circle");
+                    center.setAttribute("cx", c.x);
+                    center.setAttribute("cy", c.y);
+                    center.setAttribute("r", c.r * 0.42);
+                    center.setAttribute("fill", "url(#centerGradIntro)");
+                    group.appendChild(center);
+                });
+            }
+        });
 
-                // Tallo
-                const stemGeo = new THREE.CylinderGeometry(0.08, 0.08, 4);
-                const stemMat = new THREE.MeshStandardMaterial({ color: 0x2e8b57 });
-                const stemMesh = new THREE.Mesh(stemGeo, stemMat);
-                stemMesh.position.y = -2;
-                fGroup.add(stemMesh);
+        const mensajesFrases = [
+            "FLORES AMARILLAS PARA TI 🌻",
+            "PARA TI, MILAGROS 💛",
+            "BRILLAS COMO EL SOL ✨",
+            "DE PARTE DE BRAYAN 💛",
+            "SIEMPRE SONRÍE 🌟",
+            "TU ALEGRÍA ILUMINA TODO",
+            "UN RAMO ESPECIAL PARA TI 💐",
+            "MOMENTOS DE PURA ALEGRÍA 🌻",
+            "GRACIAS POR SER TÚ 💛"
+        ];
 
-                bouquet.add(fGroup);
-            });
-
-            return bouquet;
-        }
-
-        const bouquet3D = create3DFlowerBouquet();
-        introGroup.add(bouquet3D);
-
-        // Luces de la intro
-        const introLight = new THREE.PointLight(0xffea00, 2.5, 40);
-        introLight.position.set(0, 4, 8);
-        introScene.add(introLight);
-        introScene.add(new THREE.AmbientLight(0xffffff, 0.9));
-
-        introScene.add(introGroup);
-
-        // ==========================================
-        // 2. ESCENA PRINCIPAL: COSMOS Y GALAXIA DINÁMICA
-        // ==========================================
         const container = document.getElementById('canvas-container');
         const scene = new THREE.Scene();
-        scene.fog = new THREE.FogExp2(0x010104, 0.003);
+        scene.fog = new THREE.FogExp2(0x020208, 0.0035);
 
         const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.set(0, 22, 45);
+        camera.position.set(0, 24, 44);
 
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -422,11 +388,11 @@
         controls.enableDamping = true;
         controls.dampingFactor = 0.05;
         controls.autoRotate = true;
-        controls.autoRotateSpeed = 0.9;
+        controls.autoRotateSpeed = 0.8;
 
         const centerGroup = new THREE.Group();
 
-        // Corazón Parado Central
+        // Corazón Parado
         const heartShape = new THREE.Shape();
         heartShape.moveTo(0, 2.2);
         heartShape.bezierCurveTo(0, 3.8, 2.2, 5.0, 3.8, 3.0);
@@ -434,64 +400,79 @@
         heartShape.bezierCurveTo(-3.5, -1.2, -5.2, 1.2, -3.8, 3.0);
         heartShape.bezierCurveTo(-2.2, 5.0, 0, 3.8, 0, 2.2);
 
-        const extrudeSettings = { depth: 0.9, bevelEnabled: true, bevelSegments: 5, steps: 2, bevelSize: 0.35, bevelThickness: 0.35 };
+        const extrudeSettings = { depth: 0.8, bevelEnabled: true, bevelSegments: 4, steps: 2, bevelSize: 0.3, bevelThickness: 0.3 };
         const heartGeo = new THREE.ExtrudeGeometry(heartShape, extrudeSettings);
         heartGeo.computeVertexNormals();
 
-        const heartMat = new THREE.MeshPhongMaterial({ color: 0xffd700, emissive: 0xff8c00, emissiveIntensity: 0.6, shininess: 90 });
+        const heartMat = new THREE.MeshPhongMaterial({ color: 0xffcc00, emissive: 0xff9d00, emissiveIntensity: 0.6, shininess: 80, specular: 0xffffff });
         const heartMesh = new THREE.Mesh(heartGeo, heartMat);
-        heartMesh.scale.set(1.3, 1.3, 1.3);
+        heartMesh.scale.set(1.2, 1.2, 1.2);
         centerGroup.add(heartMesh);
 
-        // Anillo / Disco Cósmico Resplandeciente
-        function createCosmicDiskTexture() {
+        const glowLayers = [];
+        [1.45, 1.32, 1.20].forEach((scale, idx) => {
+            const glowMat = new THREE.MeshBasicMaterial({
+                color: 0xffd700,
+                transparent: true,
+                opacity: 0.12 - idx * 0.02,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false,
+                side: THREE.BackSide
+            });
+            const glowMesh = new THREE.Mesh(heartGeo, glowMat);
+            glowMesh.scale.set(scale, scale, scale);
+            centerGroup.add(glowMesh);
+            glowLayers.push(glowMesh);
+        });
+
+        const heartLight = new THREE.PointLight(0xffcc55, 2.5, 60, 2);
+        heartLight.position.set(0, 0, 2);
+        centerGroup.add(heartLight);
+        scene.add(new THREE.AmbientLight(0x3a2c10, 1.2));
+
+        function createRingTexture() {
             const canvas = document.createElement('canvas');
             canvas.width = 512; canvas.height = 512;
             const ctx = canvas.getContext('2d');
-            const grad = ctx.createRadialGradient(256, 256, 80, 256, 256, 256);
-            grad.addColorStop(0, 'rgba(255,255,200,1)');
-            grad.addColorStop(0.3, 'rgba(255,215,0,0.85)');
-            grad.addColorStop(0.65, 'rgba(255,140,0,0.4)');
+            const grad = ctx.createRadialGradient(256, 256, 90, 256, 256, 256);
+            grad.addColorStop(0, 'rgba(255,220,120,0)');
+            grad.addColorStop(0.45, 'rgba(255,196,0,0.55)');
+            grad.addColorStop(0.75, 'rgba(255,140,0,0.35)');
             grad.addColorStop(1, 'rgba(255,140,0,0)');
             ctx.fillStyle = grad;
             ctx.fillRect(0, 0, 512, 512);
             return new THREE.CanvasTexture(canvas);
         }
-
-        const cosmicRingGeo = new THREE.RingGeometry(4.0, 14.5, 96);
-        const cosmicRingMat = new THREE.MeshBasicMaterial({
-            map: createCosmicDiskTexture(),
+        const ringGeo = new THREE.RingGeometry(4.5, 11.5, 96);
+        const ringMat = new THREE.MeshBasicMaterial({
+            map: createRingTexture(),
             side: THREE.DoubleSide,
             transparent: true,
             blending: THREE.AdditiveBlending,
             depthWrite: false
         });
-        const cosmicRing = new THREE.Mesh(cosmicRingGeo, cosmicRingMat);
-        cosmicRing.rotation.x = Math.PI / 2;
-        centerGroup.add(cosmicRing);
+        const ring = new THREE.Mesh(ringGeo, ringMat);
+        ring.rotation.x = Math.PI / 2;
+        centerGroup.add(ring);
 
         scene.add(centerGroup);
-        scene.add(new THREE.AmbientLight(0x403010, 1.3));
 
-        const heartLight = new THREE.PointLight(0xffd700, 3.0, 70);
-        heartLight.position.set(0, 0, 2);
-        centerGroup.add(heartLight);
-
-        // GENERADOR DE SPRITES PARA EL COSMOS
         function createTextSprite(text, isSpecial = false) {
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
-            canvas.width = 600; canvas.height = 140;
+            canvas.width = 600;
+            canvas.height = 140;
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             if (isSpecial) {
-                ctx.fillStyle = 'rgba(255, 215, 0, 0.28)';
+                ctx.fillStyle = 'rgba(255, 215, 0, 0.25)';
                 ctx.strokeStyle = '#ffd700';
                 ctx.lineWidth = 4;
                 ctx.beginPath();
-                ctx.roundRect(15, 15, 570, 110, 22);
-                ctx.fill(); ctx.stroke();
+                ctx.roundRect(20, 20, 560, 100, 20);
+                ctx.fill();
+                ctx.stroke();
 
                 ctx.shadowColor = '#ffea00';
                 ctx.shadowBlur = 25;
@@ -499,7 +480,7 @@
                 ctx.font = 'Bold 32px "Segoe UI", Arial';
             } else {
                 ctx.shadowColor = '#ffd700';
-                ctx.shadowBlur = 14;
+                ctx.shadowBlur = 12;
                 ctx.fillStyle = '#ffffff';
                 ctx.font = 'Bold 22px "Segoe UI", Arial';
             }
@@ -513,27 +494,36 @@
             return sprite;
         }
 
-        function paintSunflower(ctx, cx, cy, r) {
-            const petalCount = 14;
+        function paintSunflower(ctx, cx, cy, r, petalCount) {
             for (let i = 0; i < petalCount; i++) {
                 const angle = (i / petalCount) * Math.PI * 2;
+                const px = cx + Math.cos(angle) * r * 0.62;
+                const py = cy + Math.sin(angle) * r * 0.62;
+
                 ctx.save();
-                ctx.translate(cx + Math.cos(angle) * r * 0.6, cy + Math.sin(angle) * r * 0.6);
+                ctx.translate(px, py);
                 ctx.rotate(angle);
-                const grad = ctx.createLinearGradient(-r * 0.4, 0, r * 0.4, 0);
+
+                const grad = ctx.createLinearGradient(-r * 0.45, 0, r * 0.45, 0);
                 grad.addColorStop(0, '#b85e00');
-                grad.addColorStop(0.5, '#ffd700');
+                grad.addColorStop(0.35, '#ffb300');
+                grad.addColorStop(0.75, '#ffe066');
                 grad.addColorStop(1, '#fff6c8');
                 ctx.fillStyle = grad;
+                ctx.strokeStyle = 'rgba(150, 80, 0, 0.4)';
+                ctx.lineWidth = 1.2;
+
                 ctx.beginPath();
-                ctx.ellipse(0, 0, r * 0.5, r * 0.18, 0, 0, Math.PI * 2);
+                ctx.ellipse(0, 0, r * 0.5, r * 0.19, 0, 0, Math.PI * 2);
                 ctx.fill();
+                ctx.stroke();
                 ctx.restore();
             }
 
             const centerR = r * 0.42;
-            const centerGrad = ctx.createRadialGradient(cx, cy, centerR * 0.1, cx, cy, centerR);
-            centerGrad.addColorStop(0, '#7a4a1e');
+            const centerGrad = ctx.createRadialGradient(cx - centerR * 0.3, cy - centerR * 0.3, centerR * 0.1, cx, cy, centerR);
+            centerGrad.addColorStop(0, '#9a6a2e');
+            centerGrad.addColorStop(0.6, '#5c3a15');
             centerGrad.addColorStop(1, '#2b1a08');
             ctx.fillStyle = centerGrad;
             ctx.beginPath();
@@ -541,24 +531,51 @@
             ctx.fill();
         }
 
-        function createBouquetSprite(isCard = false) {
+        function createSunflowerBouquetSprite(isCard = false) {
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
-            canvas.width = 320; canvas.height = 320;
+            canvas.width = 320;
+            canvas.height = 320;
 
             const wrapGrad = ctx.createLinearGradient(0, 110, 0, 300);
             wrapGrad.addColorStop(0, '#e3c495');
             wrapGrad.addColorStop(1, '#b98a4e');
             ctx.fillStyle = wrapGrad;
             ctx.beginPath();
-            ctx.moveTo(100, 190); ctx.lineTo(160, 300); ctx.lineTo(220, 190); ctx.lineTo(262, 118); ctx.lineTo(58, 118);
-            ctx.closePath(); ctx.fill();
+            ctx.moveTo(100, 190);
+            ctx.lineTo(160, 300);
+            ctx.lineTo(220, 190);
+            ctx.lineTo(262, 118);
+            ctx.lineTo(58, 118);
+            ctx.closePath();
+            ctx.fill();
 
             const flowerSpots = isCard
                 ? [{ x: 160, y: 60, r: 62 }]
                 : [{ x: 105, y: 95, r: 42 }, { x: 155, y: 55, r: 50 }, { x: 205, y: 95, r: 42 }, { x: 160, y: 135, r: 38 }];
 
-            flowerSpots.forEach(s => paintSunflower(ctx, s.x, s.y, s.r));
+            flowerSpots.forEach(s => paintSunflower(ctx, s.x, s.y, s.r, 14));
+
+            if (isCard) {
+                ctx.save();
+                ctx.translate(230, 40);
+                ctx.rotate(-0.15);
+                ctx.fillStyle = '#fff3c4';
+                ctx.strokeStyle = '#ffd700';
+                ctx.lineWidth = 3;
+                ctx.shadowColor = '#ffea00';
+                ctx.shadowBlur = 15;
+                ctx.beginPath();
+                ctx.rect(-30, -20, 60, 40);
+                ctx.fill();
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(-30, -20);
+                ctx.lineTo(0, 5);
+                ctx.lineTo(30, -20);
+                ctx.stroke();
+                ctx.restore();
+            }
 
             const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(canvas), transparent: true }));
             sprite.scale.set(isCard ? 7.8 : 5.2, isCard ? 7.8 : 5.2, 1);
@@ -568,22 +585,11 @@
         const galaxyGroup = new THREE.Group();
         const clickableObjects = [];
 
-        const frasesCosmicas = [
-            "FELIZ DÍA DE LAS FLORES AMARILLAS 🌻",
-            "PARA TI, MILAGROS ✨",
-            "ERES MI UNIVERSO 💛",
-            "BRILLAS COMO UNA ESTRELLA 🌟",
-            "DE PARTE DE BRAYAN 💛",
-            "TU SONRISA ILUMINA TODO ✨",
-            "UN DETALLE ESPECIAL PARA TI 💐",
-            "ERES LUZ EN MI VIDA 🌟"
-        ];
-
-        // 3 CARTAS DENTRO DEL COSMOS
+        // Cartas orbitando
         const cartasConfig = [
-            { id: 1, text: "✉️ CARTA 1: BRILLAS CON LUZ PROPIA", angle: 0.6, radius: 15 },
-            { id: 2, text: "✉️ CARTA 2: TU ALEGRÍA ÚNICA", angle: 2.7, radius: 19 },
-            { id: 3, text: "✉️ CARTA 3: UN REGALO CÓSMICO", angle: 4.9, radius: 23 }
+            { id: 1, text: "✉️ CARTA 1: BRILLAS CON LUZ PROPIA (TOCA AQUÍ)", angle: 0.6, radius: 15 },
+            { id: 2, text: "✉️ CARTA 2: TU ALEGRÍA ÚNICA (TOCA AQUÍ)", angle: 2.7, radius: 19 },
+            { id: 3, text: "✉️ CARTA 3: UN DETALLE PARA TI (TOCA AQUÍ)", angle: 4.9, radius: 23 }
         ];
 
         cartasConfig.forEach(c => {
@@ -595,30 +601,29 @@
             const textObj = createTextSprite(c.text, true);
             group.add(textObj);
 
-            const bouquet = createBouquetSprite(true);
+            const bouquet = createSunflowerBouquetSprite(true);
             bouquet.position.set(-11.0, 0, 0);
-            bouquet.userData = { modalId: c.id, phase: Math.random() * Math.PI * 2 };
+            bouquet.userData = { modalId: c.id, baseY: 2.5, phase: Math.random() * Math.PI * 2 };
             group.add(bouquet);
 
             clickableObjects.push(bouquet);
             galaxyGroup.add(group);
         });
 
-        // ESPIRAL DEL COSMOS
         const ambientBouquets = [];
-        for (let i = 0; i < 75; i++) {
+        for (let i = 0; i < 70; i++) {
             const group = new THREE.Group();
             const radius = 10 + (i * 0.36);
             const angle = i * 0.36;
 
             group.position.x = Math.cos(angle) * radius;
             group.position.z = Math.sin(angle) * radius;
-            group.position.y = (Math.random() - 0.5) * 4.0;
+            group.position.y = (Math.random() - 0.5) * 3.5;
 
-            const textObj = createTextSprite(frasesCosmicas[i % frasesCosmicas.length]);
+            const textObj = createTextSprite(mensajesFrases[i % mensajesFrases.length]);
             group.add(textObj);
 
-            const bouquet = createBouquetSprite(false);
+            const bouquet = createSunflowerBouquetSprite(false);
             bouquet.position.set(-7.5, 0, 0);
             bouquet.userData = { phase: Math.random() * Math.PI * 2 };
             group.add(bouquet);
@@ -629,44 +634,124 @@
 
         scene.add(galaxyGroup);
 
-        // ESTRELLAS CÓSMICAS Y POLVO ESTELAR
+        // Mariposas
+        function createButterflyWingTexture(hue) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 256; canvas.height = 256;
+            const ctx = canvas.getContext('2d');
+
+            ctx.save();
+            ctx.translate(0, 128);
+            const wingGrad = ctx.createRadialGradient(60, 0, 10, 60, 0, 140);
+            wingGrad.addColorStop(0, hue.inner);
+            wingGrad.addColorStop(0.55, hue.mid);
+            wingGrad.addColorStop(1, hue.outer);
+            ctx.fillStyle = wingGrad;
+
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.bezierCurveTo(40, -110, 190, -90, 220, -10);
+            ctx.bezierCurveTo(200, 40, 120, 30, 90, 10);
+            ctx.bezierCurveTo(110, 70, 160, 110, 130, 150);
+            ctx.bezierCurveTo(70, 130, 20, 60, 0, 0);
+            ctx.closePath();
+            ctx.fill();
+            ctx.restore();
+
+            return new THREE.CanvasTexture(canvas);
+        }
+
+        const wingPalettes = [
+            { inner: '#fff6c8', mid: '#ffd400', outer: '#e07d00' },
+            { inner: '#fff0e0', mid: '#ffb84d', outer: '#c9600a' }
+        ];
+
+        function createButterflyMesh() {
+            const palette = wingPalettes[Math.floor(Math.random() * wingPalettes.length)];
+            const tex = createButterflyWingTexture(palette);
+
+            const group = new THREE.Group();
+            const wingGeo = new THREE.PlaneGeometry(2.4, 2.4);
+            const wingMat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, side: THREE.DoubleSide, depthWrite: false });
+
+            const rightWingPivot = new THREE.Group();
+            const rightWing = new THREE.Mesh(wingGeo, wingMat);
+            rightWing.position.x = 1.15;
+            rightWingPivot.add(rightWing);
+            group.add(rightWingPivot);
+
+            const leftWingPivot = new THREE.Group();
+            const leftWing = new THREE.Mesh(wingGeo, wingMat);
+            leftWing.position.x = -1.15;
+            leftWing.scale.x = -1;
+            leftWingPivot.add(leftWing);
+            group.add(leftWingPivot);
+
+            return { group, leftWingPivot, rightWingPivot };
+        }
+
+        const butterflies = [];
+        const butterflyGroup = new THREE.Group();
+
+        for (let i = 0; i < 22; i++) {
+            const b = createButterflyMesh();
+            b.group.position.set((Math.random() - 0.5) * 50, (Math.random() - 0.5) * 18 + 4, (Math.random() - 0.5) * 50);
+            butterflies.push({
+                obj: b,
+                center: b.group.position.clone(),
+                radius: 3 + Math.random() * 6,
+                speed: 0.15 + Math.random() * 0.25,
+                phase: Math.random() * Math.PI * 2,
+                bobSpeed: 0.6 + Math.random() * 0.6,
+                flapSpeed: 12 + Math.random() * 6
+            });
+            butterflyGroup.add(b.group);
+        }
+
+        scene.add(butterflyGroup);
+
+        // Estrellas
         const starGeo = new THREE.BufferGeometry();
-        const starCount = 2500;
+        const starCount = 1800;
         const starPos = new Float32Array(starCount * 3);
         for (let i = 0; i < starCount * 3; i += 3) {
-            starPos[i] = (Math.random() - 0.5) * 180;
-            starPos[i + 1] = (Math.random() - 0.5) * 180;
-            starPos[i + 2] = (Math.random() - 0.5) * 180;
+            starPos[i] = (Math.random() - 0.5) * 160;
+            starPos[i + 1] = (Math.random() - 0.5) * 160;
+            starPos[i + 2] = (Math.random() - 0.5) * 160;
         }
         starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
-        const starField = new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0xffd700, size: 0.65, transparent: true, opacity: 0.85 }));
+        const starField = new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0xffd700, size: 0.6, transparent: true, opacity: 0.85 }));
         scene.add(starField);
 
-        // ANIMACIÓN CONTINUA
         let clock = new THREE.Clock();
 
         function animate() {
             requestAnimationFrame(animate);
             const elapsed = clock.getElapsedTime();
 
-            // Animación de la intro 3D
-            introGroup.rotation.y = Math.sin(elapsed * 0.8) * 0.3;
-            introGroup.position.y = Math.sin(elapsed * 1.5) * 0.4;
-            introRenderer.render(introScene, introCamera);
-
-            // Animación del Cosmos
-            centerGroup.rotation.y += 0.007;
-            galaxyGroup.rotation.y += 0.0025;
-            starField.rotation.y += 0.0005;
+            centerGroup.rotation.y += 0.006;
+            galaxyGroup.rotation.y += 0.0022;
+            starField.rotation.y += 0.0004;
 
             ambientBouquets.forEach(b => {
-                b.position.y = Math.sin(elapsed * 0.9 + b.userData.phase) * 0.4;
+                b.position.y = Math.sin(elapsed * 0.8 + b.userData.phase) * 0.4;
             });
 
             clickableObjects.forEach(b => {
-                b.position.y = Math.sin(elapsed * 1.6 + b.userData.phase) * 0.8;
+                b.position.y = Math.sin(elapsed * 1.5 + b.userData.phase) * 0.8;
                 const pulse = 1 + Math.sin(elapsed * 2.2 + b.userData.phase) * 0.08;
                 b.scale.set(7.8 * pulse, 7.8 * pulse, 1);
+            });
+
+            butterflies.forEach(b => {
+                const t = elapsed * b.speed + b.phase;
+                b.obj.group.position.x = b.center.x + Math.cos(t) * b.radius;
+                b.obj.group.position.z = b.center.z + Math.sin(t * 1.3) * b.radius * 0.7;
+                b.obj.group.position.y = b.center.y + Math.sin(elapsed * b.bobSpeed + b.phase) * 1.6;
+
+                const flap = Math.sin(elapsed * b.flapSpeed + b.phase) * 1.1;
+                b.obj.leftWingPivot.rotation.y = flap;
+                b.obj.rightWingPivot.rotation.y = -flap;
             });
 
             controls.update();
@@ -675,7 +760,6 @@
 
         animate();
 
-        // RECONOCIMIENTO DE TOQUES Y CLIC
         const raycaster = new THREE.Raycaster();
         const mouse = new THREE.Vector2();
 
@@ -693,10 +777,6 @@
         window.addEventListener('click', (e) => handlePick(e.clientX, e.clientY));
 
         window.addEventListener('resize', () => {
-            introCamera.aspect = window.innerWidth / window.innerHeight;
-            introCamera.updateProjectionMatrix();
-            introRenderer.setSize(window.innerWidth, window.innerHeight);
-
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
