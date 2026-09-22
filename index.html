@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Para Ti, Danii 🌻✨</title>
+    <title>Para Ti, Emna Mariza 🌻✨</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -280,42 +280,42 @@
                 <g id="sunflowerGroupIntro"></g>
             </svg>
         </div>
-        <h1 class="intro-title">Para ti, Daniii ✨</h1>
+        <h1 class="intro-title">Para ti, Emna Mariza ✨</h1>
         <p class="intro-subtitle">De parte de Brayan</p>
         <button class="start-btn" onclick="iniciarExperiencia()">Toca para iniciar 💛</button>
     </div>
 
     <div class="header-title">
-        <h1>PARA ALGUIEN ESPECIAL PARA MI: DANII 💛</h1>
+        <h1>PARA MI PRIMER AMOR: EMNA MARIZA 💛</h1>
         <p>Gira el universo 3D o toca los accesos directos abajo ✉️</p>
     </div>
 
     <div class="bottom-cards-bar">
-        <button class="quick-card-btn" onclick="openModal(1)">📜 Carta 1: Brillas con luz propia</button>
-        <button class="quick-card-btn" onclick="openModal(2)">✨ Carta 2: Tu alegría única</button>
+        <button class="quick-card-btn" onclick="openModal(1)">📜 Carta 1: Nuestro último año</button>
+        <button class="quick-card-btn" onclick="openModal(2)">✨ Carta 2: Mi primer amor</button>
         <button class="quick-card-btn" onclick="openModal(3)">💌 Carta 3: Un detalle para ti</button>
     </div>
 
     <div class="modal-overlay" id="modal1">
         <div class="note-card">
-            <h2>📜 1. Brillas con luz propia...</h2>
-            <p>Hay personas que tienen la cualidad única de iluminar el lugar a donde van, y tú eres una de ellas. Tu presencia transmite una vibra tan bonita y especial que es imposible no contagiarse de esa buena energía. ✨</p>
+            <h2>📜 1. Cómo nos conocimos...</h2>
+            <p>Aún recuerdo con mucho cariño nuestro último año de colegio. Entre carpetas, recreos y clases, conocerte cambió por completo mis días. El colegio no habría sido el mismo sin tus sonrisas, tus miradas y todos esos momentos que compartimos juntos antes de terminar esa etapa tan bonita. ✨</p>
             <button class="close-btn" onclick="closeModal(1)">Cerrar Carta 💛</button>
         </div>
     </div>
 
     <div class="modal-overlay" id="modal2">
         <div class="note-card">
-            <h2>✨ 2. Tu alegría única...</h2>
-            <p>Quería darte este detalle porque aprecio mucho la gran persona que eres. Tu sonrisa y la forma en que ves la vida hacen que cada momento sea especial, convirtiendo cualquier día ordinario en algo lindo de recordar. 🌻</p>
+            <h2>✨ 2. Siempre serás mi primer amor...</h2>
+            <p>Fuiste mi primera enamorada y la persona con la que aprendí lo que realmente significa querer de verdad. Esos primeros sentimientos, los nervios y las primeras ilusiones los viví a tu lado, y por eso siempre guardarás un lugar sumamente especial e imborrable en mis recuerdos. 🌻</p>
             <button class="close-btn" onclick="closeModal(2)">Cerrar Carta 💛</button>
         </div>
     </div>
 
     <div class="modal-overlay" id="modal3">
         <div class="note-card">
-            <h2>💌 3. Un detalle para ti, Milagros...</h2>
-            <p>Las flores amarillas representan el cariño sincero, la alegría y los mejores deseos. Hoy quise crear este pequeño universo para recordarte lo mucho que vales y desearte que tu camino siempre esté lleno de motivos para sonreír. 💛✨</p>
+            <h2>💌 3. Algo especial para ti, Emna Mariza...</h2>
+            <p>Las flores amarillas representan la alegría y los momentos más puros que iluminan la vida. Hoy quise construir este pequeño universo de girasoles para recordarte lo especial que fuiste y sigues siendo para mí. Gracias por haber formado parte de mi vida y por regalarme la historia más bonita de mi juventud. 💛✨</p>
             <button class="close-btn" onclick="closeModal(3)">Cerrar Carta 💛</button>
         </div>
     </div>
@@ -362,14 +362,14 @@
 
         const mensajesFrases = [
             "FLORES AMARILLAS PARA TI 🌻",
-            "PARA TI, MILAGROS 💛",
-            "BRILLAS COMO EL SOL ✨",
+            "MI PRIMER AMOR 💛",
+            "PARA TI, EMNA MARIZA ✨",
             "DE PARTE DE BRAYAN 💛",
-            "SIEMPRE SONRÍE 🌟",
-            "TU ALEGRÍA ILUMINA TODO",
+            "RECUERDOS DEL COLEGIO 🌟",
+            "TU SONRISA ILUMINA TODO",
             "UN RAMO ESPECIAL PARA TI 💐",
-            "MOMENTOS DE PURA ALEGRÍA 🌻",
-            "GRACIAS POR SER TÚ 💛"
+            "MOMENTOS INOLVIDABLES 🌻",
+            "GRACIAS POR SER PARTE DE MI VIDA 💛"
         ];
 
         const container = document.getElementById('canvas-container');
@@ -494,88 +494,41 @@
             return sprite;
         }
 
-        // --- RENDERIZADO HIPERREALISTA DE GIRASOLES Y FLORES VIVAS ---
         function paintSunflower(ctx, cx, cy, r, petalCount) {
-            // Capa Posterior de Pétalos (Sombra y volumen orgánico)
-            for (let i = 0; i < petalCount; i++) {
-                const angle = (i / petalCount) * Math.PI * 2 + 0.12;
-                const px = cx + Math.cos(angle) * r * 0.65;
-                const py = cy + Math.sin(angle) * r * 0.65;
-
-                ctx.save();
-                ctx.translate(px, py);
-                ctx.rotate(angle);
-
-                const gradBack = ctx.createLinearGradient(-r * 0.5, 0, r * 0.5, 0);
-                gradBack.addColorStop(0, '#9c4d00');
-                gradBack.addColorStop(0.4, '#e68a00');
-                gradBack.addColorStop(0.85, '#ffcc00');
-                gradBack.addColorStop(1, '#ffe885');
-                ctx.fillStyle = gradBack;
-
-                ctx.beginPath();
-                ctx.moveTo(-r * 0.1, 0);
-                ctx.bezierCurveTo(-r * 0.1, -r * 0.18, r * 0.3, -r * 0.22, r * 0.55, 0);
-                ctx.bezierCurveTo(r * 0.3, r * 0.22, -r * 0.1, r * 0.18, -r * 0.1, 0);
-                ctx.fill();
-                ctx.restore();
-            }
-
-            // Capa Frontal de Pétalos (Luz y textura vívida)
             for (let i = 0; i < petalCount; i++) {
                 const angle = (i / petalCount) * Math.PI * 2;
-                const px = cx + Math.cos(angle) * r * 0.6;
-                const py = cy + Math.sin(angle) * r * 0.6;
+                const px = cx + Math.cos(angle) * r * 0.62;
+                const py = cy + Math.sin(angle) * r * 0.62;
 
                 ctx.save();
                 ctx.translate(px, py);
                 ctx.rotate(angle);
 
-                const gradFront = ctx.createLinearGradient(-r * 0.45, 0, r * 0.45, 0);
-                gradFront.addColorStop(0, '#cc6e00');
-                gradFront.addColorStop(0.3, '#ffb700');
-                gradFront.addColorStop(0.7, '#ffea00');
-                gradFront.addColorStop(1, '#ffffff');
-                ctx.fillStyle = gradFront;
+                const grad = ctx.createLinearGradient(-r * 0.45, 0, r * 0.45, 0);
+                grad.addColorStop(0, '#b85e00');
+                grad.addColorStop(0.35, '#ffb300');
+                grad.addColorStop(0.75, '#ffe066');
+                grad.addColorStop(1, '#fff6c8');
+                ctx.fillStyle = grad;
+                ctx.strokeStyle = 'rgba(150, 80, 0, 0.4)';
+                ctx.lineWidth = 1.2;
 
                 ctx.beginPath();
-                ctx.moveTo(-r * 0.08, 0);
-                ctx.bezierCurveTo(-r * 0.08, -r * 0.15, r * 0.25, -r * 0.19, r * 0.5, 0);
-                ctx.bezierCurveTo(r * 0.25, r * 0.19, -r * 0.08, r * 0.15, -r * 0.08, 0);
+                ctx.ellipse(0, 0, r * 0.5, r * 0.19, 0, 0, Math.PI * 2);
                 ctx.fill();
-
-                // Venas sutiles de pétalo natural
-                ctx.strokeStyle = 'rgba(212, 113, 0, 0.35)';
-                ctx.lineWidth = 0.8;
-                ctx.beginPath();
-                ctx.moveTo(0, 0);
-                ctx.lineTo(r * 0.38, 0);
                 ctx.stroke();
-
                 ctx.restore();
             }
 
-            // Disco Floral de Semillas Texturizado en HD
-            const centerR = r * 0.44;
-            const centerGrad = ctx.createRadialGradient(cx - centerR * 0.2, cy - centerR * 0.2, centerR * 0.05, cx, cy, centerR);
-            centerGrad.addColorStop(0, '#8c592b');
-            centerGrad.addColorStop(0.4, '#523113');
-            centerGrad.addColorStop(0.85, '#2b1706');
-            centerGrad.addColorStop(1, '#140a02');
+            const centerR = r * 0.42;
+            const centerGrad = ctx.createRadialGradient(cx - centerR * 0.3, cy - centerR * 0.3, centerR * 0.1, cx, cy, centerR);
+            centerGrad.addColorStop(0, '#9a6a2e');
+            centerGrad.addColorStop(0.6, '#5c3a15');
+            centerGrad.addColorStop(1, '#2b1a08');
             ctx.fillStyle = centerGrad;
             ctx.beginPath();
             ctx.arc(cx, cy, centerR, 0, Math.PI * 2);
             ctx.fill();
-
-            // Puntos de textura de semillas y polen
-            ctx.fillStyle = 'rgba(255, 200, 80, 0.45)';
-            for (let j = 0; j < 28; j++) {
-                const seedAngle = Math.random() * Math.PI * 2;
-                const seedDist = Math.random() * centerR * 0.8;
-                ctx.beginPath();
-                ctx.arc(cx + Math.cos(seedAngle) * seedDist, cy + Math.sin(seedAngle) * seedDist, 0.9, 0, Math.PI * 2);
-                ctx.fill();
-            }
         }
 
         function createSunflowerBouquetSprite(isCard = false) {
@@ -584,27 +537,16 @@
             canvas.width = 320;
             canvas.height = 320;
 
-            // Envoltorio Kraft de Flores con Pliegues Sombreados
-            const wrapGrad = ctx.createLinearGradient(60, 120, 260, 300);
-            wrapGrad.addColorStop(0, '#f2d6b3');
-            wrapGrad.addColorStop(0.5, '#d4ad7b');
-            wrapGrad.addColorStop(1, '#946f40');
+            const wrapGrad = ctx.createLinearGradient(0, 110, 0, 300);
+            wrapGrad.addColorStop(0, '#e3c495');
+            wrapGrad.addColorStop(1, '#b98a4e');
             ctx.fillStyle = wrapGrad;
             ctx.beginPath();
             ctx.moveTo(100, 190);
             ctx.lineTo(160, 300);
             ctx.lineTo(220, 190);
-            ctx.lineTo(265, 115);
-            ctx.lineTo(55, 115);
-            ctx.closePath();
-            ctx.fill();
-
-            // Pliegue interno del ramo
-            ctx.fillStyle = 'rgba(0,0,0,0.15)';
-            ctx.beginPath();
-            ctx.moveTo(160, 300);
-            ctx.lineTo(160, 115);
-            ctx.lineTo(220, 190);
+            ctx.lineTo(262, 118);
+            ctx.lineTo(58, 118);
             ctx.closePath();
             ctx.fill();
 
@@ -612,7 +554,7 @@
                 ? [{ x: 160, y: 60, r: 62 }]
                 : [{ x: 105, y: 95, r: 42 }, { x: 155, y: 55, r: 50 }, { x: 205, y: 95, r: 42 }, { x: 160, y: 135, r: 38 }];
 
-            flowerSpots.forEach(s => paintSunflower(ctx, s.x, s.y, s.r, 16));
+            flowerSpots.forEach(s => paintSunflower(ctx, s.x, s.y, s.r, 14));
 
             if (isCard) {
                 ctx.save();
@@ -645,8 +587,8 @@
 
         // Cartas orbitando
         const cartasConfig = [
-            { id: 1, text: "✉️ CARTA 1: BRILLAS CON LUZ PROPIA (TOCA AQUÍ)", angle: 0.6, radius: 15 },
-            { id: 2, text: "✉️ CARTA 2: TU ALEGRÍA ÚNICA (TOCA AQUÍ)", angle: 2.7, radius: 19 },
+            { id: 1, text: "✉️ CARTA 1: NUESTRO ÚLTIMO AÑO (TOCA AQUÍ)", angle: 0.6, radius: 15 },
+            { id: 2, text: "✉️ CARTA 2: MI PRIMER AMOR (TOCA AQUÍ)", angle: 2.7, radius: 19 },
             { id: 3, text: "✉️ CARTA 3: UN DETALLE PARA TI (TOCA AQUÍ)", angle: 4.9, radius: 23 }
         ];
 
